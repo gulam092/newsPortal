@@ -20,11 +20,23 @@ Route::get('/listing', 'ListingPageController@index');
 
 Route::get('/details', 'DetailsPageController@index');
 
-Route::group(['prefix'=>'back'],function(){
-	Route::get('/','Admin\DashboardController@index');
-	Route::get('/category','Admin\CategoryController@index');
-	Route::get('/category/create','Admin\CategoryController@create');
-	Route::get('/category/edit','Admin\CategoryController@edit');
+Route::group(['prefix'=>'back','middleware'=>'auth'],function(){
+
+Route::get('/','Admin\DashboardController@index');
+Route::get('/category','Admin\CategoryController@index');
+Route::get('/category/create','Admin\CategoryController@create');
+Route::get('/category/edit','Admin\CategoryController@edit');
+Route::get('/permission','Admin\PermissionController@index');
+Route::get('/permission/create','Admin\PermissionController@create');
+Route::post('/permission/store','Admin\PermissionController@store');
+
+
 });
 
 Route::get('about/','AboutController@about');
+
+
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
