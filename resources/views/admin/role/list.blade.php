@@ -41,7 +41,7 @@
                       @endif
                         <div class="card-header">
                             <strong class="card-title">{{$page_name}}</strong>
-                            <a href="{{url('back/permission/create')}}" class="btn btn-primary pull-right">Create</a>
+                            <a href="{{url('back/roles/create')}}" class="btn btn-primary pull-right">Create</a>
                         </div>
                         <div class="card-body">
                   <table id="bootstrap-data-table" class="table table-striped table-bordered">
@@ -51,6 +51,7 @@
                         <th>Name</th>
                         <th>Display Name</th>
                         <th>Discription</th>
+                        <th>Permission</th>
                         <th>Option</th>
                       </tr>
                     </thead>
@@ -60,10 +61,20 @@
                         <td>{{++$i}}</td>
                         <td>{{$row->name}}</td>
                         <td>{{$row->display_name}}</td>
+
                         <td>{{$row->description}}</td>
                         <td>
-                          <a href="{{url('back/permission/edit/'.$row->id)}}" class="btn btn-primary">Edit</a>
-                          {{Form::open(['method'=>'Delete','url'=>['back/permission/delete/'.$row->id],
+                          @if($row->perms())
+                          <ul style="margin-left: 20px;">
+                            @foreach($row->perms()->get() as $permission)
+                            <li>{{$permission->name}}</li>
+                            @endforeach
+                          </ul>
+                          @endif
+                        </td>
+                        <td>
+                          <a href="{{url('back/roles/edit/'.$row->id)}}" class="btn btn-primary">Edit</a>
+                          {{Form::open(['method'=>'Delete','url'=>['back/roles/delete/'.$row->id],
                           'style'=>'display:inline'])}}
                           {{Form::submit('Delete',['class'=>'btn btn-danger'])}}
                           {{Form::close()}}

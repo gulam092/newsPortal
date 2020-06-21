@@ -18,7 +18,8 @@
                 <li>{{$error}}</li>
                 @endforeach
             </ul>
-        </div>@endif
+        </div>
+        @endif
          
         <hr>
         {{ Form::open(array('url'=>'back/permission/store','method'=>'post')) }}

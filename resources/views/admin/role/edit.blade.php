@@ -1,5 +1,17 @@
    @extends('admin.layout.master')
     @section('content')
+    <link rel="stylesheet" href="{{ asset('/public/admin/assets/css/lib/chosen/chosen.css') }}">
+  <script src="{{ asset('/public/admin/assets/js/lib/chosen/chosen.jquery.js') }}"></script>
+      <script>
+      jQuery(document).ready(function() {
+          jQuery(".myselect").chosen({
+              disable_search_threshold: 10,
+              no_results_text: "Oops, nothing found!",
+              width: "100%"
+          });
+      });
+     
+  </script>
     <textarea class="form-control" id="summary-ckeditor" name="summary-ckeditor"></textarea>
  <div class="row">
   <div class="col-md-12">
@@ -22,7 +34,7 @@
         @endif
          
         <hr>
-        {{ Form::model($permission,['route'=>['permission-update',$permission->id],'method'=>'put'])}}
+        {{ Form::model($role,['route'=>['role-update',$role->id],'method'=>'put'])}}
         <!-- <form action="" method="post" novalidate="novalidate"> -->
             
         <div class="form-group">
@@ -40,6 +52,12 @@
 
         {{ Form::textarea('description',null,['class'=>'form-control','id'=>'description']) }}
         </div>
+
+         <div class="form-group">
+        {{ Form::label('permission', 'Permission', array('class' => 'control-label mb-1')) }}
+
+    {{ Form::select('permission[]',$permission,$selectedPermission,['class'=>'form-control myselect','data-placeholder'=>'Select Permission(s)', 'multiple'] )  }}
+ </div>
 
             <div>
 <button id="payment-button" type="submit" class="btn btn-lg btn-info btn-block">
