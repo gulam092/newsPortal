@@ -12,11 +12,23 @@
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li class="active">
-                        <a href="index.html"> <i class="fa fa-dashboard"></i>Dashboard </a>
+                        <a href="./back"> <i class="fa fa-dashboard"></i>Dashboard </a>
                     </li>
+                    @permission(['Permission Update','All','Permission'])
                     <li><a href="{{ url('/back/permission') }}"> <i class="fa fa-laptop"></i>Permission </a></li>
+                    @endpermission
+
+                    @permission(['Permission Update','All'])
                    <li> <a href="{{ url('/back/roles') }}"> <i class="fa fa-laptop"></i>Role </a></li>
+                     @endpermission
+                    
+                    @permission(['Permission Update','All'])
                     <li> <a href="{{ url('/back/author') }}"> <i class="fa fa-laptop"></i>Author </a></li>
+                     @endpermission
+
+                     @permission(['Category List','All'])
+                    <li> <a href="{{ url('/back/categories') }}"> <i class="fa fa-laptop"></i>Category </a></li>
+                     @endpermission
 
                     <h3 class="menu-title">UI elements</h3><!-- /.menu-title -->
                     <li class="menu-item-has-children dropdown">

@@ -41,7 +41,10 @@
                       @endif
                         <div class="card-header">
                             <strong class="card-title">{{$page_name}}</strong>
+
+                             @permission(['Post Add','All'])
                             <a href="{{url('back/permission/create')}}" class="btn btn-primary pull-right">Create</a>
+                             @endpermission
                         </div>
                         <div class="card-body">
                   <table id="bootstrap-data-table" class="table table-striped table-bordered">
@@ -61,12 +64,17 @@
                         <td>{{$row->name}}</td>
                         <td>{{$row->display_name}}</td>
                         <td>{{$row->description}}</td>
-                        <td>
+                        <td> 
+                          @permission(['Post Add','All'])
                           <a href="{{url('back/permission/edit/'.$row->id)}}" class="btn btn-primary">Edit</a>
+                           @endpermission
+
+                            @permission(['Post Add','All'])
                           {{Form::open(['method'=>'Delete','url'=>['back/permission/delete/'.$row->id],
                           'style'=>'display:inline'])}}
                           {{Form::submit('Delete',['class'=>'btn btn-danger'])}}
                           {{Form::close()}}
+                            @endpermission
                         </td>
                       </tr>
                       @endforeach

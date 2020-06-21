@@ -26,13 +26,17 @@ Route::get('/','Admin\DashboardController@index');
 Route::get('/category','Admin\CategoryController@index');
 Route::get('/category/create','Admin\CategoryController@create');
 Route::get('/category/edit','Admin\CategoryController@edit');
-Route::get('/permission','Admin\PermissionController@index');
-Route::get('/permission/create','Admin\PermissionController@create');
-Route::post('/permission/store','Admin\PermissionController@store');
-Route::get('/permission/edit/{id}',['uses'=>'Admin\PermissionController@edit','as'=>'permission-edit']);
+ 
 
-Route::put('/permission/edit/{id}',['uses'=>'Admin\PermissionController@update','as'=>'permission-update']);
-Route::delete('/permission/delete/{id}',['uses'=>'Admin\PermissionController@destroy','as'=>'permission-delete']);
+Route::get('/permission',['uses'=>'Admin\PermissionController@index','as'=>'permission-list','middleware'=>'permission:Permission List|All']);
+
+Route::get('/permission/create',['uses'=>'Admin\PermissionController@create','as'=>'permission-create','middleware'=>'permission:Permission List|All']);
+Route::post('/permission/store',['uses'=>'Admin\PermissionController@store','as'=>'permission-store','middleware'=>'permission:Permission List|All']);
+Route::get('/permission/edit/{id}',['uses'=>'Admin\PermissionController@edit','as'=>'permission-edit','middleware'=>'permission:Permission List|All']);
+
+Route::put('/permission/edit/{id}',['uses'=>'Admin\PermissionController@update','as'=>'permission-update','middleware'=>'permission:Permission List|All']);
+
+Route::delete('/permission/delete/{id}',['uses'=>'Admin\PermissionController@destroy','as'=>'permission-delete','middleware'=>'permission:Permission List|All']);
 
 Route::get('/roles','Admin\RoleController@index');
 Route::get('/roles/create','Admin\RoleController@create');
@@ -50,6 +54,7 @@ Route::get('/author/edit/{id}',['uses'=>'Admin\AuthorController@edit','as'=>'aut
 Route::put('/author/edit/{id}',['uses'=>'Admin\AuthorController@update','as'=>'author-update']);
 Route::delete('/author/delete/{id}',['uses'=>'Admin\AuthorController@destroy','as'=>'author-delete']);
 
+Route::get('/categories',['uses'=>'Admin\CategoryController@index','as'=>'categories-list','middleware'=>'permission:Category List|All']);
 
 
 
