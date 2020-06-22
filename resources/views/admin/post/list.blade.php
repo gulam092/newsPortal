@@ -2,7 +2,7 @@
     @section('content')
      
     <link rel="stylesheet" href="{{asset('public/admin/assets/css/lib/datatable/dataTables.bootstrap.min.css')}}">
-    <!-- <link rel="stylesheet" href="{{asset('public/admin/assets/css/bootstrap-select.less')}}"> -->
+    
    
 
 
@@ -39,21 +39,25 @@
                         {{ $message }}
                       </div>
                       @endif
-                        <div class="card-header">
-                            <strong class="card-title">{{$page_name}}</strong>
+                <div class="card-header">
+                    <strong class="card-title">{{$page_name}}</strong>
 
-                             @permission(['Post Add','All'])
-                            <a href="{{url('back/permission/create')}}" class="btn btn-primary pull-right">Create</a>
-                             @endpermission
-                        </div>
+                     @permission(['Post Add','All'])
+                    <a href="{{url('back/posts/create')}}" class="btn btn-primary pull-right">Create</a>
+                     @endpermission
+                </div>
                         <div class="card-body">
                   <table id="bootstrap-data-table" class="table table-striped table-bordered">
                     <thead>
                       <tr>
                         <th>Sr</th>
-                        <th>Name</th>
-                        <th>Display Name</th>
-                        <th>Discription</th>
+                        <th>Image</th>
+                        <th>Titel</th>
+
+                        <th>Author</th>
+                        <th>Total view</th>
+                        <th>Status</th>
+                         <th>Hot News</th>
                         <th>Option</th>
                       </tr>
                     </thead>
@@ -61,20 +65,44 @@
                       @foreach($data as $i=>$row)
                       <tr>
                         <td>{{++$i}}</td>
-                        <td>{{$row->name}}</td>
-                        <td>{{$row->display_name}}</td>
-                        <td>{{$row->description}}</td>
+                        <td>
+    @if(file_exists(public_path('/post/').$row->thumb_image))
+      <img src="{{ asset('public/post') }}/{{ $row->thumb_image }} " class="img img-responsive">
+      @endif
+                        </td>
+                        <td>{{$row->title}}</td>
+                         <td>{{$row->creator->name}}</td>
+                         <td>{{$row->view_count}}</td>
+                        <td>
+      {{ Form::open(['method'=>'PUT','url'=>['/back/post/status/'.$row->id],'style'=>'display:inline' ]) }}
+           @if($row->status === 1)
+             {{ Form::submit('Unpublish',['class'=>'btn btn-danger']) }}
+             @else
+             {{ Form::submit('Publish',['class'=>'btn btn-success']) }}
+           @endif
+      {{ Form::close() }}
+                        </td>
+                              <td>
+      {{ Form::open(['method'=>'PUT','url'=>['/back/post/hotnews/'.$row->id],'style'=>'display:inline' ]) }}
+           @if($row->hot_news ===   1)
+             {{ Form::submit('No',['class'=>'btn btn-danger']) }}
+             @else
+             {{ Form::submit('Yes',['class'=>'btn btn-success']) }}
+           @endif
+      {{ Form::close() }}
+                        </td>
                         <td> 
-                          @permission(['Post Add','All'])
-                          <a href="{{url('back/permission/edit/'.$row->id)}}" class="btn btn-primary">Edit</a>
-                           @endpermission
+                  @permission(['Post Add','All'])
+                  <a href="{{url('back/comment/'.$row->id)}}" class="btn btn-info">Comment</a></br></br>
+                  <a href="{{url('back/post/edit/'.$row->id)}}" class="btn btn-primary" style="display:inline;">Edit</a></br></br>
+                  @endpermission
 
-                            @permission(['Post Add','All'])
-                          {{Form::open(['method'=>'Delete','url'=>['back/permission/delete/'.$row->id],
-                          'style'=>'display:inline'])}}
-                          {{Form::submit('Delete',['class'=>'btn btn-danger'])}}
-                          {{Form::close()}}
-                            @endpermission
+            @permission(['Post Add','All'])
+              {{Form::open(['method'=>'Delete','url'=>['back/post/delete/'.$row->id],
+              'style'=>'display:inline'])}}
+              {{Form::submit('Delete',['class'=>'btn btn-danger'])}}
+              {{Form::close()}}
+                @endpermission
                         </td>
                       </tr>
                       @endforeach

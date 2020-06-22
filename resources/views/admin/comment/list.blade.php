@@ -2,7 +2,7 @@
     @section('content')
      
     <link rel="stylesheet" href="{{asset('public/admin/assets/css/lib/datatable/dataTables.bootstrap.min.css')}}">
-    <!-- <link rel="stylesheet" href="{{asset('public/admin/assets/css/bootstrap-select.less')}}"> -->
+    
    
 
 
@@ -39,43 +39,44 @@
                         {{ $message }}
                       </div>
                       @endif
-                        <div class="card-header">
-                            <strong class="card-title">{{$page_name}}</strong>
+                <div class="card-header">
+                    <strong class="card-title">{{$page_name}}</strong>
 
-                             @permission(['Post Add','All'])
-                            <a href="{{url('back/permission/create')}}" class="btn btn-primary pull-right">Create</a>
-                             @endpermission
-                        </div>
+                    
+                </div>
                         <div class="card-body">
                   <table id="bootstrap-data-table" class="table table-striped table-bordered">
                     <thead>
                       <tr>
-                        <th>Sr</th>
+                        <th>#</th>
                         <th>Name</th>
-                        <th>Display Name</th>
-                        <th>Discription</th>
-                        <th>Option</th>
+                        <th>Post</th>
+                        <th>Comment</th>
+                         <th>Status</th> 
+                         <th>Options</th>
                       </tr>
                     </thead>
                     <tbody>
                       @foreach($data as $i=>$row)
                       <tr>
                         <td>{{++$i}}</td>
+                      
                         <td>{{$row->name}}</td>
-                        <td>{{$row->display_name}}</td>
-                        <td>{{$row->description}}</td>
-                        <td> 
-                          @permission(['Post Add','All'])
-                          <a href="{{url('back/permission/edit/'.$row->id)}}" class="btn btn-primary">Edit</a>
-                           @endpermission
-
-                            @permission(['Post Add','All'])
-                          {{Form::open(['method'=>'Delete','url'=>['back/permission/delete/'.$row->id],
-                          'style'=>'display:inline'])}}
-                          {{Form::submit('Delete',['class'=>'btn btn-danger'])}}
-                          {{Form::close()}}
-                            @endpermission
+                        <td> {{ $row->post->title}} </td>
+                         <td>{{ $row->comment }}</td>
+                        <td>
+      {{ Form::open(['method'=>'PUT','url'=>['/back/comment/status/'.$row->id],'style'=>'display:inline' ]) }}
+           @if($row->status === 1)
+             {{ Form::submit('Unpublish',['class'=>'btn btn-danger']) }}
+             @else
+             {{ Form::submit('Publish',['class'=>'btn btn-success']) }}
+           @endif
+      {{ Form::close() }}
                         </td>
+                              
+                        <td> 
+                <a href="{{url('back/comment/reply/'.$row->post_id)}}" class="btn btn-info">Reply</a></br></br>
+                  </td>
                       </tr>
                       @endforeach
                     </tbody>

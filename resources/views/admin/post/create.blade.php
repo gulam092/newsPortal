@@ -1,6 +1,7 @@
    @extends('admin.layout.master')
     @section('content')
-    <link rel="stylesheet" href="{{ asset('/public/admin/assets/css/lib/chosen/chosen.css') }}">
+<script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
+<link rel="stylesheet" href="{{ asset('/public/admin/assets/css/lib/chosen/chosen.css') }}">
   <script src="{{ asset('/public/admin/assets/js/lib/chosen/chosen.jquery.js') }}"></script>
       <script>
       jQuery(document).ready(function() {
@@ -13,7 +14,7 @@
      
   </script>
 
-    <textarea class="form-control" id="summary-ckeditor" name="summary-ckeditor"></textarea>
+   
  <div class="row">
   <div class="col-md-12">
     <div class="card">
@@ -35,16 +36,37 @@
         @endif
          
         <hr>
-{{ Form::open(array('url'=>'back/category/store','method'=>'post')) }}
+{{ Form::open(array('url'=>'back/post/store','method'=>'post','enctype'=>'multipart/form-data')) }}
         <!-- <form action="" method="post" novalidate="novalidate"> -->
             
         <div class="form-group">
-        {{ Form::label('name', 'Name', array('class' => 'control-label mb-1')) }}
+        {{ Form::label('title', 'Titel', array('class' => 'control-label mb-1')) }}
 
-            {{ Form::text('name',null,['class'=>'form-control','id'=>'name']) }}
+            {{ Form::text('title',null,['class'=>'form-control','id'=>'name', 'placeholder'=>'Titel']) }}
+        </div>
+        <div class="form-group">
+        {{ Form::label('category', 'Category', array('class' => 'control-label mb-1')) }}
+
+       {{ Form::select('category_id',$category,null,['class'=>'form-control myselect','data-placeholder'=>'Select Category'] )  }}
+        </div>
+        <div class="form-group">
+        {{ Form::label('short_description', 'Short Description', array('class' => 'control-label mb-1')) }}
+
+        {{ Form::textarea('short_description',null,['class'=>'form-control','id'=>'short_description']) }}
+        </div>
+         <div class="form-group">
+        {{ Form::label('description', 'Description', array('class' => 'control-label mb-1')) }}
+
+        {{ Form::textarea('description',null,['class'=>'form-control','id'=>'description']) }}
+        </div>
+         
+        <div class="form-group">
+        {{ Form::label('image', 'image', array('class' => 'control-label mb-1')) }}
+
+        {{ Form::file('img',['class'=>'form-control']) }}
         </div>
         
-            <div>
+<div>
 <button id="payment-button" type="submit" class="btn btn-lg btn-info btn-block">
     <i class="fa fa-lock fa-lg"></i>&nbsp;
     <span id="payment-button-amount">Submit</span>
@@ -63,6 +85,7 @@
 
 <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
 <script>
-    CKEDITOR.replace( 'summary-ckeditor' );
+    CKEDITOR.replace('description');
 </script> 
+
   @endsection

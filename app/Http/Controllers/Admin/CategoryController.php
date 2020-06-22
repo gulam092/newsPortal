@@ -26,7 +26,8 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+    $page_name  ="Category Create";
+    return view('admin.category.create',compact('page_name'));
     }
 
     /**
@@ -37,7 +38,17 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+         $this->validate($request, [ 
+            'name'=>'required'
+           ]); 
+
+         $category  = new Category();
+         $category->name   =$request->name;
+         $category->status =1;
+         $category->save();
+return redirect()->action('Admin\CategoryController@index')
+        ->with('success','Category Created Successfully');
+
     }
 
     /**
@@ -59,7 +70,10 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        $page_name  ="Category Edit";
+        $category   = Category::find($id);
+    return view('admin.category.edit',compact('page_name','category'));
+
     }
 
     /**
@@ -71,7 +85,15 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+       $this->validate($request, [ 
+            'name'=>'required'
+           ]); 
+
+         $category  = Category::find($id);
+         $category->name   =$request->name;
+         $category->save();
+return redirect()->action('Admin\CategoryController@index')
+        ->with('success','Category Updated Successfully'); 
     }
 
     /**
@@ -82,6 +104,25 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+       $delteByid  =Category::find($id);
+       $delteByid->delete();
+return redirect()->action('Admin\CategoryController@index')
+        ->with('success','Category Deleted Successfully');
+
+    }
+
+
+
+    public function status($id)
+    {
+       $category = Category::find($id);
+       if ($category->status === 1) {
+            $category->status = 0;
+        }else{
+             $category->status = 1;
+        }
+          $category->save(); 
+return redirect()->action('Admin\CategoryController@index')
+    ->with('success','Category Status change Successfully');
     }
 }

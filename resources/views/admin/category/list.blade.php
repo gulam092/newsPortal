@@ -39,13 +39,13 @@
                         {{ $message }}
                       </div>
                       @endif
-                        <div class="card-header">
-                            <strong class="card-title">{{$page_name}}</strong>
+          <div class="card-header">
+              <strong class="card-title">{{$page_name}}</strong>
 
-                             @permission(['Post Add','All'])
-                            <a href="{{url('back/category/create')}}" class="btn btn-primary pull-right">Create</a>
-                             @endpermission
-                        </div>
+               @permission(['Post Add','All'])
+              <a href="{{url('back/category/create')}}" class="btn btn-primary pull-right">Create</a>
+               @endpermission
+          </div>
                         <div class="card-body">
                   <table id="bootstrap-data-table" class="table table-striped table-bordered">
                     <thead>
@@ -63,27 +63,26 @@
                         <td>{{++$i}}</td>
                         <td>{{$row->name}}</td>
                         <td>
-                           {{Form::open(['method'=>'PUT','url'=>['back/category/status/'.$row->id],
-                           'style'=>'display:inline'])}}
-                @if($row->status==1)
-                     {{Form::submit('Unpublish',['class'=>'btn btn-danger'])}}
-                  @else
-                      {{Form::submit('Unpublish',['class'=>'btn btn-success'])}}
-                  @endif
-                          {{Form::close()}}
+      {{ Form::open(['method'=>'PUT','url'=>['/back/category/status/'.$row->id],'style'=>'display:inline' ]) }}
+           @if($row->status === 1)
+             {{ Form::submit('Unpublish',['class'=>'btn btn-danger']) }}
+             @else
+             {{ Form::submit('Publish',['class'=>'btn btn-success']) }}
+           @endif
+      {{ Form::close() }}
                         </td>
                       
                         <td> 
                           @permission(['Post Add','All'])
                           <a href="{{url('back/category/edit/'.$row->id)}}" class="btn btn-primary">Edit</a>
-                           @endpermission
+           @endpermission
 
-                            @permission(['Post Add','All'])
-                          {{Form::open(['method'=>'Delete','url'=>['back/category/delete/'.$row->id],
-                          'style'=>'display:inline'])}}
-                          {{Form::submit('Delete',['class'=>'btn btn-danger'])}}
-                          {{Form::close()}}
-                            @endpermission
+            @permission(['Post Add','All'])
+          {{Form::open(['method'=>'Delete','url'=>['back/category/delete/'.$row->id],
+          'style'=>'display:inline'])}}
+          {{Form::submit('Delete',['class'=>'btn btn-danger'])}}
+          {{Form::close()}}
+            @endpermission
                         </td>
                       </tr>
                       @endforeach
@@ -98,7 +97,7 @@
             </div><!-- .animated -->
         </div><!-- .content -->
     <script src="{{asset('public/admin/assets/js/vendor/jquery-2.1.4.min.js')}}"></script>
-    <script src="{{asset('public/admin/assets/js/popper.min.js')}}"></script>
+    
     <script src="{{asset('public/admin/assets/js/plugins.js')}}"></script>
     <script src="{{asset('public/admin/assets/js/main.js')}}"></script>
 

@@ -54,8 +54,33 @@ Route::get('/author/edit/{id}',['uses'=>'Admin\AuthorController@edit','as'=>'aut
 Route::put('/author/edit/{id}',['uses'=>'Admin\AuthorController@update','as'=>'author-update']);
 Route::delete('/author/delete/{id}',['uses'=>'Admin\AuthorController@destroy','as'=>'author-delete']);
 
-Route::get('/categories',['uses'=>'Admin\CategoryController@index','as'=>'categories-list','middleware'=>'permission:Category List|All']);
+Route::get('/category',['uses'=>'Admin\CategoryController@index','as'=>'categories-list','middleware'=>'permission:Category List|All']);
 
+Route::get('/category/create',['uses'=>'Admin\CategoryController@create','as'=>'categories-create','middleware'=>'permission:Category Create|All']);
+
+Route::post('/category/store',['uses'=>'Admin\CategoryController@store','as'=>'categories-store','middleware'=>'permission:Category Store|All']);
+Route::put('/category/status/{id}',['uses'=>'Admin\CategoryController@status','as'=>'categories-status','middleware'=>'permission:Category Store|All']);
+Route::get('/category/edit/{id}',['uses'=>'Admin\CategoryController@edit','as'=>'category-edit','middleware'=>'permission:Category Edit|All']);
+
+Route::put('/category/update/{id}',['uses'=>'Admin\CategoryController@update','as'=>'category-update','middleware'=>'permission:Category Update|All']);
+Route::delete('/category/delete/{id}',['uses'=>'Admin\CategoryController@destroy','as'=>'category-delete','middleware'=>'permission:Category Delete|All']);
+
+
+Route::get('/posts',['uses'=>'Admin\PostController@index','as'=>'posts-list','middleware'=>'permission:Post List|All']);
+Route::get('/posts/create',['uses'=>'Admin\PostController@create','as'=>'posts-create','middleware'=>'permission:Post List|All']);
+Route::post('/post/store',['uses'=>'Admin\PostController@store','as'=>'posts-store','middleware'=>'permission:Post List|All']);
+
+Route::put('/post/status/{id}',['uses'=>'Admin\PostController@status','as'=>'posts-status','middleware'=>'permission:Post List|All']);
+Route::put('/post/hotnews/{id}',['uses'=>'Admin\PostController@hot_news','as'=>'posts-hotnews','middleware'=>'permission:Post List|All']);
+Route::get('/post/edit/{id}',['uses'=>'Admin\PostController@edit','as'=>'posts-edit','middleware'=>'permission:Post List|All']);
+
+Route::put('/post/update/{id}',['uses'=>'Admin\PostController@update','as'=>'post-update','middleware'=>'permission:Post List|All']);
+Route::delete('/post/delete/{id}',['uses'=>'Admin\PostController@destroy','as'=>'post-delete','middleware'=>'permission:Post List|All']);
+Route::get('/comment/{id}',['uses'=>'Admin\CommentController@index','as'=>'comment-list','middleware'=>'permission:Comment List|All']);
+
+Route::get('/comment/reply/{id}', ['uses'=>'Admin\CommentController@reply','as'=>'comment-view', 'middleware'=> 'permission:Post List|All'] );
+Route::post('/comment/reply', ['uses'=>'Admin\CommentController@store','as'=>'comment-reply', 'middleware'=> 'permission:Post List|All'] );
+Route::put('/comment/status/{id}', ['uses'=>'Admin\CommentController@status','as'=>'comment-status', 'middleware'=> 'permission:Post List|All'] );
 
 
 });
