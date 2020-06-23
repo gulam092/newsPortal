@@ -5,8 +5,8 @@
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-menu" aria-controls="main-menu" aria-expanded="false" aria-label="Toggle navigation">
                     <i class="fa fa-bars"></i>
                 </button>
-                <a class="navbar-brand" href="./"><img src="public/admin/images/logo.png" alt="Logo"></a>
-                <a class="navbar-brand hidden" href="./"><img src="public/admin/images/logo2.png" alt="Logo"></a>
+                <a class="navbar-brand" href="{{url('/back')}}"><img src="{{asset('public/others/')}}/{{$shareData['admin_logo']}}" alt="Logo"></a>
+                <a class="navbar-brand hidden" href="{{url('/back')}}"><img src="{{asset('public/others/')}}/{{$shareData['admin_logo']}}" alt="Logo"></a>
             </div>
 
             <div id="main-menu" class="main-menu collapse navbar-collapse">
@@ -31,6 +31,9 @@
                      @endpermission
                       @permission(['Post List','All'])
                     <li> <a href="{{ url('/back/posts') }}"> <i class="fa fa-laptop"></i>Post </a></li>
+                     @endpermission
+                      @permission(['System Setting','All'])
+                    <li> <a href="{{ url('/back/settings') }}"> <i class="fa fa-laptop"></i>Setting </a></li>
                      @endpermission
                      
 

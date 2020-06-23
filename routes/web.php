@@ -17,6 +17,8 @@
 */
 Route::get('/', 'HomePageController@index');
 Route::get('/listing', 'ListingPageController@index');
+Route::get('/category/{id}', 'ListingPageController@listing1');
+Route::get('/author/{id}', 'ListingPageController@listing');
 
 Route::get('/details', 'DetailsPageController@index');
 
@@ -82,7 +84,8 @@ Route::get('/comment/reply/{id}', ['uses'=>'Admin\CommentController@reply','as'=
 Route::post('/comment/reply', ['uses'=>'Admin\CommentController@store','as'=>'comment-reply', 'middleware'=> 'permission:Post List|All'] );
 Route::put('/comment/status/{id}', ['uses'=>'Admin\CommentController@status','as'=>'comment-status', 'middleware'=> 'permission:Post List|All'] );
 
-
+Route::get('/settings', ['uses'=>'Admin\SettingController@index','as'=>'setting', 'middleware'=> 'permission:Post List|All'] );
+Route::put('/settings/update', ['uses'=>'Admin\SettingController@update','as'=>'update', 'middleware'=> 'permission:Post List|All'] );
 });
 
 

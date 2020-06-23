@@ -5,11 +5,11 @@
 <div class="col-md-4">
 <div class="left_section">
 <span class="date">
-Sunday .
+{{date('l')}}
 </span>
 <!-- Date -->
 <span class="time">
-09 August . 2016
+{{date('j F.Y')}}
 </span>
 <!-- Time -->
 <div class="social">
@@ -29,44 +29,44 @@ Sunday .
 </div>
 <div class="col-md-4">
 <div class="logo">
-<a href="index.html"><img src="public/front/img/logo.png" alt="Tech NewsLogo"></a>
+<a href="index.html"><img src="{{ asset('public/others') }}/{{$shareData['front_logo']}}" alt="Tech NewsLogo"></a>
 </div>
 <!-- Logo Section -->
 </div>
 <div class="col-md-4">
 <div class="right_section">
 <ul class="nav navbar-nav">
-<li><a href="">Login</a></li>
-<li><a href="#">Register</a></li>
-<li class="dropdown lang">
-<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
+	<li><a href="{{url('/login')}}">Login</a></li>
+	<li><a href="{{url('/register')}}">Register</a></li>
+	<li class="dropdown lang">
+	<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
 data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">En <i
 class="fa fa-angle-down"></i></button>
-<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-<li><a href="#">Bn</a></li>
-</ul>
-</li>
+ <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+	<li><a href="#">Bn</a></li>
+	</ul>
+	</li>
 </ul>
 <!-- Language Section -->
 
-<ul class="nav-cta hidden-xs">
-<li class="dropdown"><a href="#" data-toggle="dropdown" class="dropdown-toggle"><i
-class="fa fa-search"></i></a>
-<ul class="dropdown-menu">
-<li>
-<div class="head-search">
-<form role="form">
+	<ul class="nav-cta hidden-xs">
+		<li class="dropdown"><a href="#" data-toggle="dropdown" class="dropdown-toggle"><i
+		class="fa fa-search"></i></a>
+	<ul class="dropdown-menu">
+	<li>
+	<div class="head-search">
+	<form role="form">
 <!-- Input Group -->
-<div class="input-group">
-<input type="text" class="form-control"
-placeholder="Type Something"> <span class="input-group-btn">
-<button type="submit"
-class="btn btn-primary">Search
-</button>
-</span></div>
-</form>
-</div>
-</li>
+	<div class="input-group">
+	<input type="text" class="form-control"
+		placeholder="Type Something"> <span class="input-group-btn">
+	<button type="submit"
+		class="btn btn-primary">Search
+	</button>
+	</span></div>
+		</form>
+	</div>
+	</li>
 </ul>
 </li>
 </ul>
@@ -89,56 +89,20 @@ class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"><
 </button>
 </div>
 <!-- Collect the nav links, forms, and other content for toggling -->
-<div class="collapse navbar-collapse" id="#navbar-collapse-1">
-<ul class="nav navbar-nav main-nav">
-<li class="active"><a href="index.html">News</a></li>
-<li><a href="category.html">Mobile</a></li>
-<li><a href="blog.html">Tablet</a></li>
-<li><a href="blog.html">Gadgets</a></li>
-<li><a href="blog.html">Camera</a></li>
-<li><a href="blog.html">Design</a></li>
-<li class="dropdown m-menu-fw"><a href="#" data-toggle="dropdown" class="dropdown-toggle">More
-<span><i class="fa fa-angle-down"></i></span></a>
-<ul class="dropdown-menu">
-<li>
-<div class="m-menu-content">
-<ul class="col-sm-3">
-<li class="dropdown-header">Widget Haeder</li>
-<li><a href="#">Awesome Features</a></li>
-<li><a href="#">Clean Interface</a></li>
-<li><a href="#">Available Possibilities</a></li>
-<li><a href="#">Responsive Design</a></li>
-<li><a href="#">Pixel Perfect Graphics</a></li>
+	<div class="collapse navbar-collapse" id="#navbar-collapse-1">
+		<ul class="nav navbar-nav main-nav">
+	<li class="active"><a href="{{url('/')}}">Home</a></li>
+
+   @foreach($shareData['categories'] as $category)
+	<li><a href="{{url('/category')}}/{{$category->id}}">{{ $category->name }}</a></li>
+     @endforeach
+
+  @foreach($shareData['authors'] as $authors)
+	<li><a href="{{url('/authors')}}/{{$authors->id}}">{{ $authors->name }}</a></li>
+     @endforeach
 </ul>
-<ul class="col-sm-3">
-<li class="dropdown-header">Widget Haeder</li>
-<li><a href="#">Awesome Features</a></li>
-<li><a href="#">Clean Interface</a></li>
-<li><a href="#">Available Possibilities</a></li>
-<li><a href="#">Responsive Design</a></li>
-<li><a href="#">Pixel Perfect Graphics</a></li>
-</ul>
-<ul class="col-sm-3">
-<li class="dropdown-header">Widget Haeder</li>
-<li><a href="#">Awesome Features</a></li>
-<li><a href="#">Clean Interface</a></li>
-<li><a href="#">Available Possibilities</a></li>
-<li><a href="#">Responsive Design</a></li>
-<li><a href="#">Pixel Perfect Graphics</a></li>
-</ul>
-<ul class="col-sm-3">
-<li class="dropdown-header">Widget Haeder</li>
-<li><a href="#">Awesome Features</a></li>
-<li><a href="#">Clean Interface</a></li>
-<li><a href="#">Available Possibilities</a></li>
-<li><a href="#">Responsive Design</a></li>
-<li><a href="#">Pixel Perfect Graphics</a></li>
-</ul>
-</div>
-</li>
-</ul>
-</li>
-</ul>
+
+
 </div>
 <!-- .navbar-collapse -->
 </div>
