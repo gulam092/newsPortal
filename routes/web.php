@@ -18,9 +18,12 @@
 Route::get('/', 'HomePageController@index');
 Route::get('/listing', 'ListingPageController@index');
 Route::get('/category/{id}', 'ListingPageController@listing1');
-Route::get('/author/{id}', 'ListingPageController@listing');
+Route::get('/authors/{id}', 'ListingPageController@listing');
 
-Route::get('/details', 'DetailsPageController@index');
+Route::get('/details/{slug}', 'DetailsPageController@index')
+                        ->name('details');
+Route::post('/comments', 'DetailsPageController@comment');
+
 
 Route::group(['prefix'=>'back','middleware'=>'auth'],function(){
 

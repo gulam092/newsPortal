@@ -15,9 +15,7 @@
 <div class="container">
 <div class="row">
 <div class="col-md-8">
-    @php 
-     $posts
-    @endphp
+   
  @foreach($posts as $key=>$post)
                 @if($key === 0)
                     <div class="entity_wrapper">
